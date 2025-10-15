@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mini 🎀🌸</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #ffe6f2, #fff5fb, #fce0ff);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3em;
+    color: #ff66b2;
+    text-shadow: 0 0 20px #ffb6c1;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.2em;
+    color: #7a2961;
+    max-width: 700px;
+    line-height: 1.7;
+    background: rgba(255, 240, 250, 0.8);
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255, 192, 203, 0.5);
+    backdrop-filter: blur(8px);
+    animation: floatText 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes floatText {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(5px); }
+  }
+
+  .images {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+
+  .images img {
+    width: 160px;
+    height: auto;
+    animation: floaty 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px #ffd6eb);
+    border-radius: 20px;
+  }
+
+  @keyframes floaty {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="images">
+  <img src="https://i.pinimg.com/1200x/cf/af/d3/cfafd3f4784dacc3eb494a1e4036cffc.jpg" alt="My Melody">
+  <img src="https://i.pinimg.com/736x/7f/50/76/7f5076ce61940b6a986b0dd2c48b8b27.jpg" alt="Kuromi">
+</div>
+
+<h1>🎂 Happy Birthday, Mini! 🎉</h1>
+
+<p>
+Wishing you a day filled with smiles, laughter, and all the happiness you bring to others every day.  
+You have a special way of making everyone around you feel valued and cherished.  
+May this year bring you countless wonderful moments and endless reasons to smile.  
+Keep shining bright and spreading your kindness like you always do! 💖  
+<br><br>
+Have a fantastic birthday, dear Minnie! 🌸💫
+</p>
+
+<script>
+  // confetti background 🎉
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let confettis = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  for (let i = 0; i < 300; i++) {
+    confettis.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 6 + 2,
+      d: Math.random() * 2 + 1,
+      color: `hsl(${Math.random() * 360}, 100%, 75%)`,
+    });
+  }
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confettis.forEach(c => {
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.fillStyle = c.color;
+      ctx.fill();
+    });
+    updateConfetti();
+    requestAnimationFrame(drawConfetti);
+  }
+
+  function updateConfetti() {
+    confettis.forEach(c => {
+      c.y += c.d;
+      c.x += Math.sin(c.y / 40);
+      if (c.y > canvas.height) c.y = -10;
+    });
+  }
+  drawConfetti();
+</script>
+
+</body>
+</html>
